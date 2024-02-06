@@ -12,6 +12,10 @@ namespace CollegeSystem.Core.Models
         [Range(0,Double.MaxValue, ErrorMessage ="Salary Value is Not Valid")]
         public decimal Salary;
 
+        public List<Course> courseId;
 
+        public List<Exam> ExamId;
+
+        public List<Assignment> AssignmentId;
     }
 }

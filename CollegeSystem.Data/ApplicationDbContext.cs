@@ -16,6 +16,7 @@ namespace CollegeSystem.Data
             
         }
 
+        
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Admin> Admins { get; set; }
@@ -24,7 +25,17 @@ namespace CollegeSystem.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Events> Events { get; set; }
         public DbSet<Exam> Exams { get; set; }
+        public DbSet<AssignmentSolution> AssignmentSolutions { get; set; }
+        public DbSet<StudentAssignment> StudentAssignments { get; set; }
+        public DbSet<StudentCourses> StudentCourses { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AssignmentSolution>().HasKey(a => new { a.StudentId, a.AssignmentId });
+            modelBuilder.Entity<StudentAssignment>().HasKey(s => new { s.StudentId, s.AssignmentId });
+            modelBuilder.Entity<StudentCourses>().HasKey(s => new { s.StudentId, s.CourseId });
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

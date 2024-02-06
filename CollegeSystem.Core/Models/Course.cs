@@ -18,5 +18,17 @@ namespace CollegeSystem.Core.Models
 
         [Range(1, 4, ErrorMessage = "Invalid Level Input")]
         public byte level { get; set; }
+
+        public Guid TeacherId;
+        public Teacher Teacher { get; set;}
+
+        public ICollection<Attendance> Attendances { get; set; }
+
+        public ICollection<StudentCourses> StudentCourses { get; set; }
+
+        public List<Course> Courses { get; set; }
+
+        public List<Exam> Exams { get; set; }
+
     }
 }

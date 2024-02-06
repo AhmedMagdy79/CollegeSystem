@@ -8,5 +8,12 @@ namespace CollegeSystem.Core.Models
 {
     public class Student : User
     {
+        public ICollection<Attendance> Attendances { get; set; }
+
+        public ICollection<StudentCourses> StudentCourses { get; set; }
+
+        public ICollection<StudentAssignment> StudentAssignments { get; set; }
+
+        public ICollection<AssignmentSolution> AssignmentSolution { get; set; }
     }
 }

@@ -27,5 +27,16 @@ namespace CollegeSystem.Core.Models
         [AssignmentDuration(ErrorMessage = "DeadLine must be 3 days later at minimum")]
         [Required(ErrorMessage = "DeadLine Is Required")]
         public DateTime DeadLine { get; set; }
+
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+
+        public Guid TeacherId;
+        public Teacher Teacher { get; set; }
+
+        public ICollection<StudentAssignment> StudentAssignments { get; set; }
+
+        public ICollection<AssignmentSolution> AssignmentSolution { get; set; }
+
     }
 }

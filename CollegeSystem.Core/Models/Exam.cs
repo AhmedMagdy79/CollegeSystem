@@ -30,5 +30,11 @@ namespace CollegeSystem.Core.Models
 
         [DefaultValue(false)]
         public bool IsCanceled{ get; set; }
+
+        public Guid TeacherId;
+        public Teacher Teacher { get; set; }
+
+        public int CourseId { get; set; }
+        public Course Course { get; set;}
     }
 }

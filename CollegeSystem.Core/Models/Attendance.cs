@@ -15,5 +15,14 @@ namespace CollegeSystem.Core.Models
 
         [DefaultValue(false)]
         public bool IsPresent { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DeliverDate { get; set; } = DateTime.UtcNow;
+
+        public int CourseId;
+        public Course Course { get; set;}
+
+        public Guid StudentId { get; set; }
+        public Student Student { get; set; }
     }
 }
