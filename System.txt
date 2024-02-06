@@ -1,0 +1,24 @@
+Admin:
+Signup Student,Teacher
+Add Announsment
+Assign Courses to teacher
+
+
+Teacher:
+View Announsment
+Add Exam
+Add Attendence
+Upload Assignment
+update student grade
+
+Student:
+view subjects with their current grade
+submit assignment
+check attendance
+
+
+
+Common Actions:
+
+Change Personal Information: Users can update their personal information, such as contact details or address, as needed.
+Login/Logout: Users need to log in with their credentials to access the system and log out when they are done.
