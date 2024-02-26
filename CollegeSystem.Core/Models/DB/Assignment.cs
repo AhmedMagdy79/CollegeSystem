@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class Assignment
     {
@@ -21,7 +21,7 @@ namespace CollegeSystem.Core.Models
         public string FileURL { get; set; }
 
         [Required(ErrorMessage = "Grade Is Required")]
-        [Range(0,50,ErrorMessage ="Assignment Grade is Invalid")]
+        [Range(0, 50, ErrorMessage = "Assignment Grade is Invalid")]
         public decimal Grade { get; set; }
 
         [AssignmentDuration(ErrorMessage = "DeadLine must be 3 days later at minimum")]
@@ -31,7 +31,7 @@ namespace CollegeSystem.Core.Models
         public int CourseId { get; set; }
         public Course Course { get; set; }
 
-        public Guid TeacherId;
+        public string TeacherId;
         public Teacher Teacher { get; set; }
 
         public ICollection<StudentAssignment> StudentAssignments { get; set; }

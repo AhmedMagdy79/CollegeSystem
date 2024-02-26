@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class Teacher : User
     {
-        [Range(0,Double.MaxValue, ErrorMessage ="Salary Value is Not Valid")]
-        public decimal Salary;
+        /*[Range(0, double.MaxValue, ErrorMessage = "Salary Value is Not Valid")]
+        public decimal Salary;*/
 
         public List<Course> courseId;
 

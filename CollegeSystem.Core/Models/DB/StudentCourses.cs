@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class StudentCourses
     {
         public int CourseId;
         public Course Course { get; set; }
 
-        public Guid StudentId { get; set; }
+        public string StudentId { get; set; }
         public Student Student { get; set; }
     }
 }

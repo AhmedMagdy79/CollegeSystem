@@ -22,3 +22,22 @@ Common Actions:
 
 Change Personal Information: Users can update their personal information, such as contact details or address, as needed.
 Login/Logout: Users need to log in with their credentials to access the system and log out when they are done.
+
+
+
+Relations 
+Teacher --> teaches one or many --> courses  0000000000000000000000
+Student -----> many to many --> courses (attendance, studies)000000000000000000000
+Student -----> many to many ---> Assignment(has, solve) 00000000000000000000000
+Assignment ----> set by ---> teacher00000000000000000
+Assignment ----> belongs to ---> Course00000000000000000000
+Exam--> set by ---> teacher00000000000000000000000000
+Exam--> belongs to ---> Course00000000000000000000000
+
+
+
+composite primary keys : 
+AssignmentSolution  00000
+StudentAssignment 000000000
+StudentCourses
+

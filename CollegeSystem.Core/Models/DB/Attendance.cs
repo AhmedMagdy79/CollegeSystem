@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class Attendance
     {
@@ -20,9 +20,9 @@ namespace CollegeSystem.Core.Models
         public DateTime DeliverDate { get; set; } = DateTime.UtcNow;
 
         public int CourseId;
-        public Course Course { get; set;}
+        public Course Course { get; set; }
 
-        public Guid StudentId { get; set; }
+        public string StudentId { get; set; }
         public Student Student { get; set; }
     }
 }

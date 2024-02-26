@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class Exam
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Name Is Required")]
+        [Required(ErrorMessage = "Name Is Required")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Description Is Required")]
@@ -25,16 +25,16 @@ namespace CollegeSystem.Core.Models
         public DateTime StartTime { get; set; }
 
         [Required(ErrorMessage = "EndTime Is Required")]
-        [ExamDuration(ErrorMessage="Duration Time Should Be 3 hours Maximum")]
+        [ExamDuration(ErrorMessage = "Duration Time Should Be 3 hours Maximum")]
         public DateTime EndTime { get; set; }
 
         [DefaultValue(false)]
-        public bool IsCanceled{ get; set; }
+        public bool IsCanceled { get; set; }
 
-        public Guid TeacherId;
+        public string TeacherId;
         public Teacher Teacher { get; set; }
 
         public int CourseId { get; set; }
-        public Course Course { get; set;}
+        public Course Course { get; set; }
     }
 }

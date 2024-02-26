@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class Course
     {
@@ -19,8 +19,8 @@ namespace CollegeSystem.Core.Models
         [Range(1, 4, ErrorMessage = "Invalid Level Input")]
         public byte level { get; set; }
 
-        public Guid TeacherId;
-        public Teacher Teacher { get; set;}
+        public string TeacherId;
+        public Teacher Teacher { get; set; }
 
         public ICollection<Attendance> Attendances { get; set; }
 

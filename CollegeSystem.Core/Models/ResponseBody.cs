@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace CollegeSystem.Core.Models
 {
-    public class Admin : User
+    public class ResponseBody<T>
     {
+        public bool IsSuccess { get; set; }
 
+        public string Message { get; set; }
+
+        public T? Result { get; set; }
     }
 }

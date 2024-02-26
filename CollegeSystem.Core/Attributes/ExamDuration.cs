@@ -1,4 +1,4 @@
-﻿using CollegeSystem.Core.Models;
+﻿using CollegeSystem.Core.Models.DB;
 using System.ComponentModel.DataAnnotations;
 
 namespace CollegeSystem.Core.Attributes

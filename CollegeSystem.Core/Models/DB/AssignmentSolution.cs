@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace CollegeSystem.Core.Models
+namespace CollegeSystem.Core.Models.DB
 {
     public class AssignmentSolution
     {
@@ -11,7 +11,9 @@ namespace CollegeSystem.Core.Models
         public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; }
 
-        public Guid StudentId { get; set; }
+        public string FileURL { get; set; }
+
+        public string StudentId { get; set; }
         public Student Student { get; set; }
     }
 }
