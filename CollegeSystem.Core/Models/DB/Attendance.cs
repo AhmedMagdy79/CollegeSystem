@@ -13,16 +13,8 @@ namespace CollegeSystem.Core.Models.DB
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [DefaultValue(false)]
-        public bool IsPresent { get; set; }
+        public ICollection<Course> Courses { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime DeliverDate { get; set; } = DateTime.UtcNow;
-
-        public int CourseId;
-        public Course Course { get; set; }
-
-        public string StudentId { get; set; }
-        public Student Student { get; set; }
+        public ICollection<Student> Students { get; set; }
     }
 }

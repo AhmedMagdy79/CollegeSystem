@@ -26,9 +26,11 @@ namespace CollegeSystem.Core.Models.DB
 
         public ICollection<StudentCourses> StudentCourses { get; set; }
 
-        public List<Course> Courses { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
 
-        public List<Exam> Exams { get; set; }
+        public ICollection<Exam> Exams { get; set; }
+
+        public ICollection<StudentAttendence> StudentAttendences { get; set; }
 
     }
 }

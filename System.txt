@@ -39,5 +39,6 @@ Exam--> belongs to ---> Course00000000000000000000000
 composite primary keys : 
 AssignmentSolution  00000
 StudentAssignment 000000000
-StudentCourses
+StudentCourses 0000000
+Student Attendence 0000000
 

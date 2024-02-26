@@ -9,13 +9,13 @@ namespace CollegeSystem.Core.Models.DB
 {
     public class Teacher : User
     {
-        /*[Range(0, double.MaxValue, ErrorMessage = "Salary Value is Not Valid")]
-        public decimal Salary;*/
+        [Range(0, double.MaxValue, ErrorMessage = "Salary Value is Not Valid")]
+        public decimal Salary { get; set; }
 
-        public List<Course> courseId;
+        public ICollection<Course> course;
 
-        public List<Exam> ExamId;
+        public ICollection<Exam> Exam;
 
-        public List<Assignment> AssignmentId;
+        public ICollection<Assignment> Assignment;
     }
 }

@@ -15,5 +15,8 @@ namespace CollegeSystem.Core.Models.DB
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
 
         public ICollection<AssignmentSolution> AssignmentSolution { get; set; }
+
+        public ICollection<StudentAttendence> StudentAttendences { get; set; }
+
     }
 }
