@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CollegeSystem.Core.Models
 {
-    public class ServiceReturn<T>
+    public class ApiResponse<T>
     {
-        public int StatusCode { get; set; }
+        public bool IsSuccess { get; set; }
+
+        public string Message { get; set; }
 
         public T? Result { get; set; }
     }

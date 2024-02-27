@@ -19,9 +19,8 @@ namespace CollegeSystem.Core
         IBaseRepository<Exam> Exams { get; }
         IBaseRepository<StudentAssignment> StudentAssignments { get; }
         IBaseRepository<StudentCourses> StudentCoursess { get; }
-        UserManager<Student> StudentManager { get; }
-        UserManager<Teacher> TeacherManager { get; }
-        UserManager<Admin> AdminManager { get; }
+        IBaseRepository<StudentAttendence> StudentAttendences { get; }
+
 
         Task SaveAsync();
     }
