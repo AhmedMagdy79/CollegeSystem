@@ -9,10 +9,18 @@ using CollegeSystem.Core;
 using CollegeSystem.Core.Services;
 using CollegeSystem.API.Services;
 using Microsoft.Extensions.DependencyInjection;
+using CollegeSystem.Core.Models.Shared;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddLogging(config =>
+{
+    config.AddConsole();
+    config.AddDebug();
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -77,10 +85,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 builder.Services.AddControllers();
 
+//Configuration
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+
+//services DP
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ITeacherService, TeacherService>();
 builder.Services.AddTransient<IStudentService, StudentService>();
 builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

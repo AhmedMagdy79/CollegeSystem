@@ -34,7 +34,7 @@ namespace CollegeSystem.API.Controllers
 
             var result = await _adminService.Signup(model);
 
-            if(result.StatusCode == 400)
+            if (result.StatusCode == 500)
             {
                 return BadRequest("Something Went Wrong");
             }
