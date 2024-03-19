@@ -1,3 +1,4 @@
+using CollegeSystem.Core.Models.DB;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeSystem.API.Controllers
@@ -22,7 +23,8 @@ namespace CollegeSystem.API.Controllers
         public IActionResult Get()
         {
             Response.StatusCode = StatusCodes.Status400BadRequest;
-            return new JsonResult(new { test = "test"});
+            var test = typeof(Student);
+            return new JsonResult(new {test1 = test.FullName});
         }
     }
 }

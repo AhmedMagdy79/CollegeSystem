@@ -464,23 +464,30 @@ namespace CollegeSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
+                {
+                    b.HasBaseType("CollegeSystem.Core.Models.DB.User");
 
                     b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Student", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.HasBaseType("CollegeSystem.Core.Models.DB.User");
 
                     b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+                    b.HasBaseType("CollegeSystem.Core.Models.DB.User");
 
                     b.Property<decimal>("Salary")
                         .HasColumnType("decimal(18,2)");
@@ -688,9 +695,18 @@ namespace CollegeSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.User", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("CollegeSystem.Core.Models.DB.User", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
+                {
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", null)
                         .WithOne()
                         .HasForeignKey("CollegeSystem.Core.Models.DB.Admin", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -699,7 +715,7 @@ namespace CollegeSystem.Data.Migrations
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Student", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", null)
                         .WithOne()
                         .HasForeignKey("CollegeSystem.Core.Models.DB.Student", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -708,7 +724,7 @@ namespace CollegeSystem.Data.Migrations
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", null)
                         .WithOne()
                         .HasForeignKey("CollegeSystem.Core.Models.DB.Teacher", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)

@@ -1,4 +1,5 @@
-﻿using CollegeSystem.Core.Services;
+﻿using CollegeSystem.Core.Models.DB;
+using CollegeSystem.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace CollegeSystem.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserService<User> _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService<User> userService)
         {
             _userService = userService;
         }
