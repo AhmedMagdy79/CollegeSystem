@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CollegeSystem.API.Services
 {
-    public class UserService : IUserService
+    public class UserService<TUser> : IUserService<TUser> where TUser : class
     {
         private readonly IUserManagerFactory _managerFactory;
         private readonly UserManager<IdentityUser> userManager;
@@ -41,7 +41,5 @@ namespace CollegeSystem.API.Services
 
             return true;
         }
-
-        private Task<bool> VerifyEmailToken(string userId, string token, UserManager<Admin> userManager) { }
     }
 }

@@ -13,18 +13,21 @@ namespace CollegeSystem.API.Services
         private readonly UserManager<Admin> _adminManager;
         private readonly SignInManager<User> _adminSignInManager;
         private readonly ILogger<AdminService> _logger;
+        private readonly IUserService<Admin> _userService;
         private readonly IEmailService _emailService;
 
 
         public AdminService(UserManager<Admin> adminMangaer,
                             SignInManager<User> adminSignInManager,
                             ILogger<AdminService> logger,
-                            IEmailService emailService )
+                            IEmailService emailService,
+                            IUserService<Admin> userService)
         {
             _adminManager = adminMangaer;
             _adminSignInManager = adminSignInManager;
             _logger = logger;
             _emailService = emailService;
+            _userService = userService;
         }
 
         public async Task<bool> IsExist(UserRequest model)
@@ -56,7 +59,7 @@ namespace CollegeSystem.API.Services
 
 
             await _adminManager.AddClaimAsync(admin, new Claim("IsAdmin", "true"));
-            var token =  await _adminManager.GenerateEmailConfirmationTokenAsync(admin);
+            var token = await _userService.GenerateVerificationTokenAsync(admin);
             await _emailService.SendVerificationTokenAsync(admin.Email, token, admin.Id);
             return new ServiceResult<UserResponse> { StatusCode = 201 };
         }
