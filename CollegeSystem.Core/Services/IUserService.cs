@@ -8,6 +8,6 @@ namespace CollegeSystem.Core.Services
 {
     public interface IUserService
     {
-        Task<bool> CheckVerificationTokenAsync(string token, string userId);
+        Task<bool> CheckVerificationTokenAsync(string token, string userId, string userType);
     }
 }
