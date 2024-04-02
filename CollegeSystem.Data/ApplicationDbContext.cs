@@ -35,15 +35,49 @@ namespace CollegeSystem.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Teacher>(entity => { entity.ToTable("Teachers"); });
-            modelBuilder.Entity<Student>(entity => { entity.ToTable("Students"); });
-            modelBuilder.Entity<Admin>(entity => { entity.ToTable("Admins"); });
-            modelBuilder.Entity<User>(entity => { entity.ToTable("Users"); });
             modelBuilder.Entity<AssignmentSolution>().HasKey(a => new { a.StudentId, a.AssignmentId });
             modelBuilder.Entity<StudentAssignment>().HasKey(s => new { s.StudentId, s.AssignmentId });
             modelBuilder.Entity<StudentCourses>().HasKey(s => new { s.StudentId, s.CourseId });
             modelBuilder.Entity<StudentAttendence>().HasKey(s => new { s.StudentId, s.CourseId });
+            modelBuilder.Entity<Admin>().HasKey(a => a.UserId);
+            modelBuilder.Entity<Teacher>().HasKey(a => a.UserId);
+            modelBuilder.Entity<Student>().HasKey(a => a.UserId);
 
+            modelBuilder.Entity<User>()
+                    .HasOne(u => u.Student)
+                    .WithOne(s => s.User)
+                    .HasForeignKey<Student>(a => a.UserId);
+
+            modelBuilder.Entity<User>()
+                    .HasOne(u => u.Teacher)
+                    .WithOne(t => t.User)
+                    .HasForeignKey<Teacher>(a => a.UserId);
+
+
+            modelBuilder.Entity<User>()
+                    .HasOne(u => u.Admin)
+                    .WithOne(a => a.User)
+                    .HasForeignKey<Admin>(a => a.UserId);
+
+            //on delete actions for users 
+
+            //teacher
+            modelBuilder.Entity<Teacher>()
+                        .HasMany(t => t.Assignment)
+                        .WithOne(a => a.Teacher)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Teacher>()
+                        .HasMany(t => t.course)
+                        .WithOne(a => a.Teacher)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Teacher>()
+                        .HasMany(t => t.Exam)
+                        .WithOne(a => a.Teacher)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+            //student
         }
 
     }

@@ -28,22 +28,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddIdentityCore<Student>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddIdentityCore<Teacher>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddIdentityCore<Admin>()
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentity<User, IdentityRole>().
+    AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders(); ;
 
 
 builder.Services.Configure<IdentityOptions>(options =>

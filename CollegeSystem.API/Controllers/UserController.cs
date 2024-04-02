@@ -9,9 +9,9 @@ namespace CollegeSystem.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService<User> _userService;
+        private readonly IUserService _userService;
 
-        public UserController(IUserService<User> userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
@@ -24,7 +24,7 @@ namespace CollegeSystem.API.Controllers
                 return BadRequest();
             }
 
-            var isVerified = await _userService.CheckVerificationTokenAsync(userId, token);
+            var isVerified = await _userService.CheckEmailVerificationTokenAsync(userId, token);
 
             if(!isVerified)
             {

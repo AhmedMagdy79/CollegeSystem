@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace CollegeSystem.Core.Models.DB
 {
-    public class Admin : User
+    public class Admin 
     {
-
+        public User User;
+        public string UserId { get; set; }
     }
 }

@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace CollegeSystem.Core.Models.DB
 {
-    public class Teacher : User
+    public class Teacher
     {
-        [Range(0, double.MaxValue, ErrorMessage = "Salary Value is Not Valid")]
+        public User User;
+        public string UserId { get; set; }
+
         public decimal Salary { get; set; }
 
         public ICollection<Course> course;

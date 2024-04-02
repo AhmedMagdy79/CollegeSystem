@@ -8,6 +8,6 @@ namespace CollegeSystem.Core.Services
 {
     public interface IEmailService
     {
-        Task SendVerificationTokenAsync(string email, string token, string userId);
+        Task SendEmailVerificationTokenAsync(string email, string token, string userId);
     }
 }
