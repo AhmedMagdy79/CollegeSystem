@@ -24,7 +24,7 @@ namespace CollegeSystem.API.Controllers
                 return BadRequest();
             }
 
-            var isVerified = await _userService.CheckEmailVerificationTokenAsync(userId, token);
+            var isVerified = await _userService.CheckVerificationTokenAsync(userId, token);
 
             if(!isVerified)
             {

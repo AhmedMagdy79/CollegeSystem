@@ -14,7 +14,7 @@ namespace CollegeSystem.Core.Repositories
         
         Task<T> GetByIdAsync(int id);
 
-        Task<T> GetByIdAsync(string id);
+        Task<T> GetByIdAsync(Guid id);
 
         T Delete(T entity);
 

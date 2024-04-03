@@ -18,7 +18,7 @@ namespace CollegeSystem.API.Services
             _emailSettings = emailSettings.Value;
         }
 
-        public async Task SendEmailVerificationTokenAsync(string email, string token, string userId)
+        public async Task SendVerificationTokenAsync(string email, string token, string userId)
         {
             var client = new SmtpClient(_emailSettings.SmtpClient, _emailSettings.SmtpPortNumber)
             {

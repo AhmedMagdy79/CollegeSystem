@@ -10,16 +10,19 @@ namespace CollegeSystem.API.Services
 {
     public class StudentService: IStudentService
     {
-        private readonly UserManager<User> _studentManager;
+        private readonly UserManager<Student> _studentManager;
+        private readonly SignInManager<User> _studentSignInManager;
         private readonly ILogger<StudentService> _logger;
         private readonly IEmailService _emailService;
 
 
-        public StudentService(UserManager<User> userMangaer,
+        public StudentService(UserManager<Student> userMangaer,
+                            SignInManager<User> userSignInManager,
                             ILogger<StudentService> logger,
                             IEmailService emailService)
         {
             _studentManager = userMangaer;
+            _studentSignInManager = userSignInManager;
             _logger = logger;
             _emailService = emailService;
         }
@@ -41,9 +44,9 @@ namespace CollegeSystem.API.Services
         public async Task<ServiceResult<UserResponse>> Signup(UserRequest model)
         {
             string logSignature = "<< StudentService --- Signup>>";
-            var student = new Student { };
-            var user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Student = student };
-            var result = await _studentManager.CreateAsync(user, model.Password);
+            var student = new Student { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
+            var result = await _studentManager.CreateAsync(student, model.Password);
+
 
             if (!result.Succeeded)
             {
@@ -52,9 +55,9 @@ namespace CollegeSystem.API.Services
             }
 
 
-            await _studentManager.AddClaimAsync(user, new Claim("IsStudent", "true"));
-            var token = await _studentManager.GenerateEmailConfirmationTokenAsync(user);
-            await _emailService.SendEmailVerificationTokenAsync(user.Email, token, user.Id);
+            await _studentManager.AddClaimAsync(student, new Claim("IsStudent", "true"));
+            var token = await _studentManager.GenerateEmailConfirmationTokenAsync(student);
+            await _emailService.SendVerificationTokenAsync(student.Email, token, student.Id);
             return new ServiceResult<UserResponse> { StatusCode = 201 };
         }
     }

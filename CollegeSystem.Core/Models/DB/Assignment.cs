@@ -31,8 +31,8 @@ namespace CollegeSystem.Core.Models.DB
         public int CourseId { get; set; }
         public Course Course { get; set; }
 
-        public Teacher Teacher { get; set; }
         public string TeacherId;
+        public Teacher Teacher { get; set; }
 
         public ICollection<StudentAssignment> StudentAssignments { get; set; }
 
