@@ -39,7 +39,7 @@ namespace CollegeSystem.Data.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(string id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

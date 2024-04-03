@@ -23,9 +23,10 @@ namespace CollegeSystem.API.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            } 
 
             var isExist = await _adminService.IsExist(model);
+            var test = "";
 
             if (isExist)
             {

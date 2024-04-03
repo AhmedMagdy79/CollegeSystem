@@ -36,6 +36,13 @@ namespace CollegeSystem.Data
 
         public IBaseRepository<StudentAttendence> StudentAttendences { get; private set; }
 
+        public IBaseRepository<Admin> Admin { get; private set; }
+
+        public IBaseRepository<Teacher> Teacher { get; private set; }
+
+        public IBaseRepository<Student> Student { get; private set; }
+
+        public IBaseRepository<User> User { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -50,6 +57,10 @@ namespace CollegeSystem.Data
             StudentAssignments = new BaseRepository<StudentAssignment>(_context);
             StudentCoursess = new BaseRepository<StudentCourses>(_context);
             StudentAttendences = new BaseRepository<StudentAttendence>(_context);
+            Admin = new BaseRepository<Admin>(_context);
+            Teacher = new BaseRepository<Teacher>(_context);
+            Student = new BaseRepository<Student>(_context);
+            User = new BaseRepository<User>(_context);
         }
 
         public async Task SaveAsync()

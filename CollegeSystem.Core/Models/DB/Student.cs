@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace CollegeSystem.Core.Models.DB
 {
-    public class Student : User
+    public class Student
     {
+        public User User;
+        public string UserId { get; set; }
+
         public ICollection<Attendance> Attendances { get; set; }
 
         public ICollection<StudentCourses> StudentCourses { get; set; }

@@ -11,12 +11,12 @@ namespace CollegeSystem.API.Services
 {
     public class TeacherService : ITeacherService
     {
-        private readonly UserManager<Teacher> _teacherManager;
+        private readonly UserManager<User> _teacherManager;
         private readonly SignInManager<User> _teacherSignInManager;
         private readonly ILogger<TeacherService> _logger;
 
 
-        public TeacherService(UserManager<Teacher> teacherMangaer, SignInManager<User> teacherSignInManager, ILogger<TeacherService> Logger)
+        public TeacherService(UserManager<User> teacherMangaer, SignInManager<User> teacherSignInManager, ILogger<TeacherService> Logger)
         {
             _teacherManager = teacherMangaer;
             _teacherSignInManager = teacherSignInManager;
@@ -40,9 +40,10 @@ namespace CollegeSystem.API.Services
         public async Task<ServiceResult<UserResponse>> Signup(TeacherRequest model)
         {
             string logSignature = "<< TeacherService --- Signup  >>";
-            var teacher = new Teacher { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Salary = model.Salary };
+            var teacher = new Teacher { Salary = model.Salary };
+            var user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Teacher = teacher };
 
-            var result = await _teacherManager.CreateAsync(teacher, model.Password);
+            var result = await _teacherManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
@@ -50,7 +51,7 @@ namespace CollegeSystem.API.Services
                 return new ServiceResult<UserResponse> { StatusCode = 500 };
             }
 
-            await _teacherManager.AddClaimAsync(teacher, new Claim("IsTeacher", "true"));
+            await _teacherManager.AddClaimAsync(user, new Claim("IsTeacher", "true"));
 
             return new ServiceResult<UserResponse> { StatusCode = 201};
         }

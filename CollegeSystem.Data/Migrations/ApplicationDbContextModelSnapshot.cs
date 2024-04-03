@@ -42,14 +42,24 @@ namespace CollegeSystem.Data.Migrations
                     b.Property<int>("AttendancesId")
                         .HasColumnType("int");
 
-                    b.Property<string>("StudentsId")
+                    b.Property<string>("StudentsUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("AttendancesId", "StudentsId");
+                    b.HasKey("AttendancesId", "StudentsUserId");
 
-                    b.HasIndex("StudentsId");
+                    b.HasIndex("StudentsUserId");
 
                     b.ToTable("AttendanceStudent");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Admin");
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Assignment", b =>
@@ -77,14 +87,15 @@ namespace CollegeSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeacherId1")
+                    b.Property<string>("TeacherUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("TeacherId1");
+                    b.HasIndex("TeacherUserId");
 
                     b.ToTable("Assignments");
                 });
@@ -137,7 +148,8 @@ namespace CollegeSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeacherId1")
+                    b.Property<string>("TeacherUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<byte>("level")
@@ -145,7 +157,7 @@ namespace CollegeSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId1");
+                    b.HasIndex("TeacherUserId");
 
                     b.ToTable("Courses");
                 });
@@ -202,16 +214,27 @@ namespace CollegeSystem.Data.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TeacherId1")
+                    b.Property<string>("TeacherUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("TeacherId1");
+                    b.HasIndex("TeacherUserId");
 
                     b.ToTable("Exams");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Student", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.StudentAssignment", b =>
@@ -264,6 +287,19 @@ namespace CollegeSystem.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("StudentCourses");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -330,6 +366,10 @@ namespace CollegeSystem.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -381,6 +421,8 @@ namespace CollegeSystem.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -468,31 +510,7 @@ namespace CollegeSystem.Data.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
-                {
-                    b.HasBaseType("CollegeSystem.Core.Models.DB.User");
-
-                    b.ToTable("Admins", (string)null);
-                });
-
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Student", b =>
-                {
-                    b.HasBaseType("CollegeSystem.Core.Models.DB.User");
-
-                    b.ToTable("Students", (string)null);
-                });
-
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
-                {
-                    b.HasBaseType("CollegeSystem.Core.Models.DB.User");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.ToTable("Teachers", (string)null);
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("AttendanceCourse", b =>
@@ -520,9 +538,20 @@ namespace CollegeSystem.Data.Migrations
 
                     b.HasOne("CollegeSystem.Core.Models.DB.Student", null)
                         .WithMany()
-                        .HasForeignKey("StudentsId")
+                        .HasForeignKey("StudentsUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
+                {
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", "User")
+                        .WithOne("Admin")
+                        .HasForeignKey("CollegeSystem.Core.Models.DB.Admin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Assignment", b =>
@@ -534,8 +563,10 @@ namespace CollegeSystem.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CollegeSystem.Core.Models.DB.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId1");
+                        .WithMany("Assignment")
+                        .HasForeignKey("TeacherUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Course");
 
@@ -564,8 +595,10 @@ namespace CollegeSystem.Data.Migrations
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Course", b =>
                 {
                     b.HasOne("CollegeSystem.Core.Models.DB.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId1");
+                        .WithMany("course")
+                        .HasForeignKey("TeacherUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Teacher");
                 });
@@ -579,12 +612,25 @@ namespace CollegeSystem.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CollegeSystem.Core.Models.DB.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId1");
+                        .WithMany("Exam")
+                        .HasForeignKey("TeacherUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Course");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Student", b =>
+                {
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", "User")
+                        .WithOne("Student")
+                        .HasForeignKey("CollegeSystem.Core.Models.DB.Student", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.StudentAssignment", b =>
@@ -644,6 +690,17 @@ namespace CollegeSystem.Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
+                {
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", "User")
+                        .WithOne("Teacher")
+                        .HasForeignKey("CollegeSystem.Core.Models.DB.Teacher", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -695,42 +752,6 @@ namespace CollegeSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.User", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("CollegeSystem.Core.Models.DB.User", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Admin", b =>
-                {
-                    b.HasOne("CollegeSystem.Core.Models.DB.User", null)
-                        .WithOne()
-                        .HasForeignKey("CollegeSystem.Core.Models.DB.Admin", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Student", b =>
-                {
-                    b.HasOne("CollegeSystem.Core.Models.DB.User", null)
-                        .WithOne()
-                        .HasForeignKey("CollegeSystem.Core.Models.DB.Student", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
-                {
-                    b.HasOne("CollegeSystem.Core.Models.DB.User", null)
-                        .WithOne()
-                        .HasForeignKey("CollegeSystem.Core.Models.DB.Teacher", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Assignment", b =>
                 {
                     b.Navigation("AssignmentSolution");
@@ -758,6 +779,27 @@ namespace CollegeSystem.Data.Migrations
                     b.Navigation("StudentAttendences");
 
                     b.Navigation("StudentCourses");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.Teacher", b =>
+                {
+                    b.Navigation("Assignment");
+
+                    b.Navigation("Exam");
+
+                    b.Navigation("course");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.User", b =>
+                {
+                    b.Navigation("Admin")
+                        .IsRequired();
+
+                    b.Navigation("Student")
+                        .IsRequired();
+
+                    b.Navigation("Teacher")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
