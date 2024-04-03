@@ -9,6 +9,6 @@ namespace CollegeSystem.Core.Repositories
 {
     public interface ITokenRepository : IBaseRepository<UserToken>
     {
-        UserToken GetToken(string userId, string token);
+        Task<UserToken> GetToken(string userId, string token);
     }
 }

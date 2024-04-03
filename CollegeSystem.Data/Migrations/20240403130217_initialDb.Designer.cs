@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CollegeSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240327091334_initialAppWithOneIdentity")]
-    partial class initialAppWithOneIdentity
+    [Migration("20240403130217_initialDb")]
+    partial class initialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,7 +61,7 @@ namespace CollegeSystem.Data.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("CollegeSystem.Core.Models.DB.Assignment", b =>
@@ -302,6 +302,29 @@ namespace CollegeSystem.Data.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.UserToken", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TokenType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "Token");
+
+                    b.ToTable("UserTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -703,6 +726,17 @@ namespace CollegeSystem.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CollegeSystem.Core.Models.DB.UserToken", b =>
+                {
+                    b.HasOne("CollegeSystem.Core.Models.DB.User", "User")
+                        .WithMany("UserToken")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -802,6 +836,8 @@ namespace CollegeSystem.Data.Migrations
 
                     b.Navigation("Teacher")
                         .IsRequired();
+
+                    b.Navigation("UserToken");
                 });
 #pragma warning restore 612, 618
         }

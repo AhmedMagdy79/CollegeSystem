@@ -1,4 +1,5 @@
 using CollegeSystem.Core;
+using CollegeSystem.Core.Constansts;
 using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Services;
 using Microsoft.AspNetCore.Identity;
@@ -33,28 +34,34 @@ namespace CollegeSystem.API.Services
                 return false;
             }
 
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (!result.Succeeded)
+            var userToken = await _unitOfWork.Tokens.GetToken(userId, token);
+            
+            if (userToken == null && userToken.EndDate > DateTime.UtcNow && userToken.TokenType == TokenTypes.Confirm_Email)
             {
-                _logger.LogError($"{logSignature} Faild to verify user {result}");
+                _logger.LogError($"{logSignature} Faild to verify user");
                 return false;
             }
+
+            user.EmailConfirmed = true;
+            await _userManager.UpdateAsync(user);
 
             return true;
         }
 
         public async Task<string> GenerateEmailVerifivationTokenAsync(string userId)
         {
-            var user = await _userManager.FindByIdAsync(userId);
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            /*await Task.Delay(new TimeSpan(0, 0, 30)).ContinueWith(async o => 
-             { var result = await _userManager.ConfirmEmailAsync(user, token); Console.WriteLine("ana hena y jou"); });*/
+            var token = GenerateEmailConfirmationToken(userId);
+            var userToken = new UserToken { Token = token, UserId = userId, TokenType = TokenTypes.Confirm_Email };
+            await _unitOfWork.Tokens.AddAsync(userToken);
+            await _unitOfWork.SaveAsync();
             return token;
         }
 
-        private string GenerateEmailConfirmationTokenAsync(string userId)
+        private string GenerateEmailConfirmationToken(string userId)
         {
-
+            Random rand = new Random();
+            int randomNumber = rand.Next(100000, 999999);
+            return randomNumber + "";
         }
     }
 }

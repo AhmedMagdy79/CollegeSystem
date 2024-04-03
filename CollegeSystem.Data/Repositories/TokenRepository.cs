@@ -10,15 +10,19 @@ namespace CollegeSystem.Data.Repositories
 {
     internal class TokenRepository : BaseRepository<UserToken>, ITokenRepository
     {
-        private readonly ApplicationDbContext _context;
 
         public TokenRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public UserToken GetToken(string userId, string token)
+        public async Task<UserToken> GetToken(string userId, string token)
         {
-            var token = _context.UserTokens.FindAsync(t => t.UserId );
+            var usertoken = await _context.UserTokens.FindAsync(userId, token);
+            if (usertoken == null)
+            {
+                return null;
+            }
+            return usertoken;
         }
     }
 }

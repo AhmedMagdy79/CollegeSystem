@@ -11,6 +11,6 @@ namespace CollegeSystem.Core.Services
     {
         Task<bool> CheckEmailVerificationTokenAsync( string userId, string token);
 
-        Task<string> GenerateVerificationTokenAsync(string userId);
+        Task<string> GenerateEmailVerifivationTokenAsync(string userId);
     }
 }

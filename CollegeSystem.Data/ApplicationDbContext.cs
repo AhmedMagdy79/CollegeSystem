@@ -39,6 +39,7 @@ namespace CollegeSystem.Data
             modelBuilder.Entity<StudentAssignment>().HasKey(s => new { s.StudentId, s.AssignmentId });
             modelBuilder.Entity<StudentCourses>().HasKey(s => new { s.StudentId, s.CourseId });
             modelBuilder.Entity<StudentAttendence>().HasKey(s => new { s.StudentId, s.CourseId });
+            modelBuilder.Entity<UserToken>().HasKey(t => new { t.UserId, t.Token });
             modelBuilder.Entity<Admin>().HasKey(a => a.UserId);
             modelBuilder.Entity<Teacher>().HasKey(a => a.UserId);
             modelBuilder.Entity<Student>().HasKey(a => a.UserId);

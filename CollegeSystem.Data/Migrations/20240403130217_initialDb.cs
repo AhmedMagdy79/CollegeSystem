@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CollegeSystem.Data.Migrations
 {
-    public partial class initialAppWithOneIdentity : Migration
+    public partial class initialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -98,16 +98,16 @@ namespace CollegeSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Admin",
+                name: "Admins",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admin", x => x.UserId);
+                    table.PrimaryKey("PK_Admins", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Admin_AspNetUsers_UserId",
+                        name: "FK_Admins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -228,6 +228,27 @@ namespace CollegeSystem.Data.Migrations
                     table.PrimaryKey("PK_Teachers", x => x.UserId);
                     table.ForeignKey(
                         name: "FK_Teachers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Token = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TokenType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.Token });
+                    table.ForeignKey(
+                        name: "FK_UserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -562,7 +583,7 @@ namespace CollegeSystem.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admin");
+                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -602,6 +623,9 @@ namespace CollegeSystem.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "StudentCourses");
+
+            migrationBuilder.DropTable(
+                name: "UserTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
