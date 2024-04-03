@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CollegeSystem.Core.Services
 {
-    public interface IUserService<TUser>
+    public interface IUserService
     {
         Task<bool> CheckVerificationTokenAsync(string token, string userId);
 
-        Task<string> GenerateVerificationTokenAsync(TUser user);
+        Task<string> GenerateVerificationTokenAsync(string userId);
     }
 }

@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CollegeSystem.API.Services
 {
-    public class UserService<TUser> : IUserService<TUser> where TUser : class
+    public class UserService : IUserService
     {
 
-        private readonly UserManager<TUser> _userManager;
-        private readonly ILogger<UserService<TUser>> _logger;
+        private readonly UserManager<User> _userManager;
+        private readonly ILogger<UserService> _logger;
 
-        public UserService(UserManager<TUser> userManager, ILogger<UserService<TUser>> logger)
+        public UserService(UserManager<User> userManager, ILogger<UserService> logger)
         {
             _userManager = userManager;
             _logger = logger;
@@ -38,10 +38,15 @@ namespace CollegeSystem.API.Services
         }
 
 
-        public async Task<string> GenerateVerificationTokenAsync(TUser user)
+        public async Task<string> GenerateVerificationTokenAsync(string userId)
         {
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return token;
+        }
+
+        private string GenerateEmailConfirmationTokenAsync(string userId)
+        {
+
         }
     }
 }

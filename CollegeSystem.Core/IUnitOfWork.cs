@@ -20,6 +20,7 @@ namespace CollegeSystem.Core
         IBaseRepository<StudentAssignment> StudentAssignments { get; }
         IBaseRepository<StudentCourses> StudentCoursess { get; }
         IBaseRepository<StudentAttendence> StudentAttendences { get; }
+        IBaseRepository<>
 
 
         Task SaveAsync();

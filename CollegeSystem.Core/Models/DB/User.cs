@@ -9,6 +9,6 @@ namespace CollegeSystem.Core.Models.DB
 {
     public class User : IdentityUser
     {
-
+        public ICollection<UserToken> UserToken { get; set; }
     }
 }
