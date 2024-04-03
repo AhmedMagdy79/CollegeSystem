@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +14,6 @@ namespace CollegeSystem.Core.Models.DB
         public Teacher Teacher { get; set; }
 
         public Student Student { get; set; }
+        public ICollection<UserToken> UserToken { get; set; }
     }
 }

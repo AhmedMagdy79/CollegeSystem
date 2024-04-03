@@ -1,4 +1,4 @@
-﻿using CollegeSystem.Core;
+using CollegeSystem.Core;
 using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Repositories;
 using CollegeSystem.Data.Repositories;
@@ -36,6 +36,7 @@ namespace CollegeSystem.Data
 
         public IBaseRepository<StudentAttendence> StudentAttendences { get; private set; }
 
+        public ITokenRepository Tokens { get; private set; } 
         public IBaseRepository<Admin> Admin { get; private set; }
 
         public IBaseRepository<Teacher> Teacher { get; private set; }
@@ -61,6 +62,7 @@ namespace CollegeSystem.Data
             Teacher = new BaseRepository<Teacher>(_context);
             Student = new BaseRepository<Student>(_context);
             User = new BaseRepository<User>(_context);
+            Tokens = new TokenRepository(_context);
         }
 
         public async Task SaveAsync()

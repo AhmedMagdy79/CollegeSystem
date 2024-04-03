@@ -1,4 +1,4 @@
-﻿using CollegeSystem.Core.Models.DB;
+using CollegeSystem.Core.Models.DB;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +20,6 @@ namespace CollegeSystem.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<Admin> Users {get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Attendance> Attendance { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -30,6 +29,7 @@ namespace CollegeSystem.Data
         public DbSet<StudentAssignment> StudentAssignments { get; set; }
         public DbSet<StudentCourses> StudentCourses { get; set; }
         public DbSet<StudentAttendence> StudentAttendences { get; set; }
+        public DbSet<UserToken> UserTokens { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,4 +1,4 @@
-﻿using CollegeSystem.Core;
+using CollegeSystem.Core;
 using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Services;
 using Microsoft.AspNetCore.Identity;
@@ -50,6 +50,11 @@ namespace CollegeSystem.API.Services
             /*await Task.Delay(new TimeSpan(0, 0, 30)).ContinueWith(async o => 
              { var result = await _userManager.ConfirmEmailAsync(user, token); Console.WriteLine("ana hena y jou"); });*/
             return token;
+        }
+
+        private string GenerateEmailConfirmationTokenAsync(string userId)
+        {
+
         }
     }
 }

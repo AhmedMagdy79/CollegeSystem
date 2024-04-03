@@ -1,4 +1,4 @@
-﻿using CollegeSystem.Core.Models.DB;
+using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Repositories;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -24,6 +24,7 @@ namespace CollegeSystem.Core
         IBaseRepository<Teacher> Teacher { get; }
         IBaseRepository<Student> Student { get; }
         IBaseRepository<User> User { get; }
+        ITokenRepository Tokens { get; }
 
 
         Task SaveAsync();

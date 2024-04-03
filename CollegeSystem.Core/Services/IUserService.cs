@@ -1,4 +1,4 @@
-﻿using CollegeSystem.Core.Models.DB;
+using CollegeSystem.Core.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,6 @@ namespace CollegeSystem.Core.Services
     {
         Task<bool> CheckEmailVerificationTokenAsync( string userId, string token);
 
-        Task<string> GenerateEmailVerifivationTokenAsync(string userId);
+        Task<string> GenerateVerificationTokenAsync(string userId);
     }
 }
