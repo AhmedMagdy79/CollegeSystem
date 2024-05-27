@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CollegeSystem.Core.Models.DB
+﻿namespace CollegeSystem.Core.Models.DB
 {
     public class UserToken
     {
-        public string UserId { get; set;}
-        public User User { get; set;}
-        
-        public string Token { get; set;}
+        public string UserId { get; set; }
+        public User User { get; set; }
 
-        public string TokenType { get; set;}
+        public string Token { get; set; }
+
+        public string TokenType { get; set; }
 
         public DateTime StartDate { get; set; } = DateTime.UtcNow;
 

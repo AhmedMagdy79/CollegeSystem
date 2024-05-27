@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CollegeSystem.Core.Models.Shared
+﻿namespace CollegeSystem.Core.Models.Shared
 {
     public class EmailSettings
     {
@@ -16,6 +10,6 @@ namespace CollegeSystem.Core.Models.Shared
 
         public int SmtpPortNumber { get; set; }
 
-        public string ConfirmMailUrl { get; set;}
+        public string ConfirmMailUrl { get; set; }
     }
 }

@@ -18,13 +18,13 @@ namespace CollegeSystem.API.Controllers
         {
             _logger = logger;
         }
-        
+
         [HttpGet(Name = "GetWeatherForecast")]
         public IActionResult Get()
         {
             Response.StatusCode = StatusCodes.Status400BadRequest;
             var test = typeof(Student);
-            return new JsonResult(new {test1 = test.FullName});
+            return new JsonResult(new { test1 = test.FullName });
         }
     }
 }

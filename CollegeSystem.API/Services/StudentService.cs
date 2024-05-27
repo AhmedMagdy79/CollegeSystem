@@ -1,14 +1,14 @@
-﻿using CollegeSystem.Core.Models.DB;
+﻿using CollegeSystem.Core.Models;
+using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Models.Request;
 using CollegeSystem.Core.Models.Response;
-using CollegeSystem.Core.Models;
 using CollegeSystem.Core.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace CollegeSystem.API.Services
 {
-    public class StudentService: IStudentService
+    public class StudentService : IStudentService
     {
         private readonly UserManager<User> _studentManager;
         private readonly ILogger<StudentService> _logger;

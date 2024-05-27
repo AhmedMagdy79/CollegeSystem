@@ -1,7 +1,5 @@
-﻿using CollegeSystem.API.Services;
-using CollegeSystem.Core.Models.Request;
+﻿using CollegeSystem.Core.Models.Request;
 using CollegeSystem.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeSystem.API.Controllers
@@ -12,7 +10,7 @@ namespace CollegeSystem.API.Controllers
     {
         private readonly IAdminService _adminService;
 
-        public AdminController (IAdminService adminService)
+        public AdminController(IAdminService adminService)
         {
             _adminService = adminService;
         }
@@ -23,7 +21,7 @@ namespace CollegeSystem.API.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            } 
+            }
 
             var isExist = await _adminService.IsExist(model);
             var test = "";

@@ -1,6 +1,5 @@
 ﻿using CollegeSystem.Core.Models.Request;
 using CollegeSystem.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeSystem.API.Controllers
@@ -9,7 +8,7 @@ namespace CollegeSystem.API.Controllers
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly ITeacherService _teacherService;   
+        private readonly ITeacherService _teacherService;
 
         public TeacherController(ITeacherService teacherService)
         {
@@ -26,7 +25,7 @@ namespace CollegeSystem.API.Controllers
 
             var isExist = await _teacherService.IsExist(model);
 
-            if (isExist) 
+            if (isExist)
             {
                 return BadRequest("This Mail Is Already Exist");
             }
@@ -38,7 +37,7 @@ namespace CollegeSystem.API.Controllers
                 return BadRequest("Something Went Wrong");
             }
 
-            return StatusCode(201,"Teacher Created Succesfully");
+            return StatusCode(201, "Teacher Created Succesfully");
 
         }
     }

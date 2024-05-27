@@ -48,7 +48,7 @@ namespace CollegeSystem.API.Services
         public async Task<ServiceResult<UserResponse>> Signup(UserRequest model)
         {
             string logSignature = "<< AdminService --- Signup>>";
-            var admin = new Admin {};
+            var admin = new Admin { };
             var user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Admin = admin };
             var result = await _adminManager.CreateAsync(user, model.Password);
 

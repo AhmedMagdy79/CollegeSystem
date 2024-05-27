@@ -1,16 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using CollegeSystem.Data;
-using Microsoft.AspNetCore.Identity;
+using CollegeSystem.API.Services;
+using CollegeSystem.Core;
 using CollegeSystem.Core.Models.DB;
+using CollegeSystem.Core.Models.Shared;
+using CollegeSystem.Core.Services;
+using CollegeSystem.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using CollegeSystem.Core;
-using CollegeSystem.Core.Services;
-using CollegeSystem.API.Services;
-using Microsoft.Extensions.DependencyInjection;
-using CollegeSystem.Core.Models.Shared;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

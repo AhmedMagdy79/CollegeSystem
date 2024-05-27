@@ -1,11 +1,10 @@
-﻿using CollegeSystem.Core.Models.DB;
+﻿using CollegeSystem.Core.Models;
+using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Models.Request;
 using CollegeSystem.Core.Models.Response;
-using CollegeSystem.Core.Models;
 using CollegeSystem.Core.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using Microsoft.Extensions.Logging;
 
 namespace CollegeSystem.API.Services
 {
@@ -25,7 +24,7 @@ namespace CollegeSystem.API.Services
 
         public async Task<bool> IsExist(TeacherRequest model)
         {
-           var res = await _teacherManager.FindByEmailAsync(model.Email);
+            var res = await _teacherManager.FindByEmailAsync(model.Email);
 
             if (res == null) { return false; }
 
@@ -47,13 +46,13 @@ namespace CollegeSystem.API.Services
 
             if (!result.Succeeded)
             {
-                _logger.LogError( $"{logSignature} Faild to signup teacher {result}");
+                _logger.LogError($"{logSignature} Faild to signup teacher {result}");
                 return new ServiceResult<UserResponse> { StatusCode = 500 };
             }
 
             await _teacherManager.AddClaimAsync(user, new Claim("IsTeacher", "true"));
 
-            return new ServiceResult<UserResponse> { StatusCode = 201};
+            return new ServiceResult<UserResponse> { StatusCode = 201 };
         }
     }
 }

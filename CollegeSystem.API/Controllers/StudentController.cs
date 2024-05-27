@@ -1,7 +1,5 @@
-﻿using CollegeSystem.API.Services;
-using CollegeSystem.Core.Models.Request;
+﻿using CollegeSystem.Core.Models.Request;
 using CollegeSystem.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeSystem.API.Controllers

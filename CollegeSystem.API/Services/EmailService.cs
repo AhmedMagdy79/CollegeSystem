@@ -1,11 +1,8 @@
-﻿using CollegeSystem.Core.Services;
-using System.Net.Mail;
-using System.Net;
-using System;
-using CollegeSystem.Core.Models.Shared;
-using Microsoft.AspNetCore.Identity;
-using CollegeSystem.Core.Models.DB;
+﻿using CollegeSystem.Core.Models.Shared;
+using CollegeSystem.Core.Services;
 using Microsoft.Extensions.Options;
+using System.Net;
+using System.Net.Mail;
 
 namespace CollegeSystem.API.Services
 {
@@ -13,7 +10,7 @@ namespace CollegeSystem.API.Services
     {
         private readonly EmailSettings _emailSettings;
 
-        public EmailService(IOptions<EmailSettings> emailSettings) 
+        public EmailService(IOptions<EmailSettings> emailSettings)
         {
             _emailSettings = emailSettings.Value;
         }
@@ -26,7 +23,7 @@ namespace CollegeSystem.API.Services
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(_emailSettings.Email, _emailSettings.Password)
             };
-            
+
             var message = string.Format(_emailSettings.ConfirmMailUrl, userId, token);
             var subject = "College Verification";
             await client.SendMailAsync(

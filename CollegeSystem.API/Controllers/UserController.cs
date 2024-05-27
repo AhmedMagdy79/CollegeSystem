@@ -1,6 +1,4 @@
-﻿using CollegeSystem.Core.Models.DB;
-using CollegeSystem.Core.Services;
-using Microsoft.AspNetCore.Http;
+﻿using CollegeSystem.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeSystem.API.Controllers
@@ -17,16 +15,16 @@ namespace CollegeSystem.API.Controllers
         }
 
         [HttpGet("{userId}/{token}")]
-        public async Task<IActionResult> VerifyEmailToken(string userId, string token) 
+        public async Task<IActionResult> VerifyEmailToken(string userId, string token)
         {
-            if(userId == null || token == null) 
+            if (userId == null || token == null)
             {
                 return BadRequest();
             }
 
             var isVerified = await _userService.CheckEmailVerificationTokenAsync(userId, token);
 
-            if(!isVerified)
+            if (!isVerified)
             {
                 return BadRequest("Unable to verify account");
             }
