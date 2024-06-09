@@ -1,3 +1,7 @@
+using CollegeSystem.Core.Models;
+using CollegeSystem.Core.Models.Request;
+using CollegeSystem.Core.Models.Response;
+
 namespace CollegeSystem.Core.Services
 {
     public interface IUserService
@@ -5,5 +9,7 @@ namespace CollegeSystem.Core.Services
         Task<bool> CheckEmailVerificationTokenAsync(string userId, string token);
 
         Task<string> GenerateEmailVerifivationTokenAsync(string userId);
+
+        Task<LogInResponse> LogInAsync(LogInRequest request);
     }
 }

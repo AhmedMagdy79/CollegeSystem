@@ -8,6 +8,7 @@ namespace CollegeSystem.Core.Models.Request
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "PhoneNumber is required")]

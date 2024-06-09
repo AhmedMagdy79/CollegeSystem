@@ -6,7 +6,7 @@ namespace CollegeSystem.Core.Models.DB
     public class Course
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         [Required(ErrorMessage = "Name Is Required")]
         public string Name { get; set; }
@@ -24,8 +24,6 @@ namespace CollegeSystem.Core.Models.DB
         public ICollection<Assignment> Assignments { get; set; }
 
         public ICollection<Exam> Exams { get; set; }
-
-        public ICollection<StudentAttendence> StudentAttendences { get; set; }
 
     }
 }

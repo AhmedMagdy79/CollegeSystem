@@ -13,7 +13,5 @@
 
         public ICollection<AssignmentSolution> AssignmentSolution { get; set; }
 
-        public ICollection<StudentAttendence> StudentAttendences { get; set; }
-
     }
 }

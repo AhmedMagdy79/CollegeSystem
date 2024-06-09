@@ -1,4 +1,5 @@
 ﻿using CollegeSystem.Core;
+using CollegeSystem.Core.Constants;
 using CollegeSystem.Core.Models;
 using CollegeSystem.Core.Models.DB;
 using CollegeSystem.Core.Models.Request;
@@ -48,20 +49,31 @@ namespace CollegeSystem.API.Services
         public async Task<ServiceResult<UserResponse>> Signup(UserRequest model)
         {
             string logSignature = "<< AdminService --- Signup>>";
-            var admin = new Admin { };
-            var user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Admin = admin };
-            var result = await _adminManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
+            try
             {
-                _logger.LogError($"{logSignature} Faild to signup Admin {result}");
+                var admin = new Admin { };
+                var user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber, Admin = admin };
+                _logger.LogInformation($"{logSignature} started to signup teacher");
+                var result = await _adminManager.CreateAsync(user, model.Password);
+
+                if (!result.Succeeded)
+                {
+                    _logger.LogError($"{logSignature} Faild to signup Admin {result}");
+                    return new ServiceResult<UserResponse> { StatusCode = 500 };
+                }
+
+                await _adminManager.AddClaimAsync(user, new Claim(Claims.IsAdminClaim, "true"));
+                var token = await _userService.GenerateEmailVerifivationTokenAsync(user.Id);
+                await _emailService.SendEmailVerificationTokenAsync(user.Email, token, user.Id);
+                _logger.LogInformation($"{logSignature} finished signup teacher");
+                return new ServiceResult<UserResponse> { StatusCode = 201 };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{logSignature} sonthing went wrong while signing up admin : {ex.Message}");
                 return new ServiceResult<UserResponse> { StatusCode = 500 };
             }
 
-            await _adminManager.AddClaimAsync(user, new Claim("IsAdmin", "true"));
-            var token = await _userService.GenerateEmailVerifivationTokenAsync(user.Id);
-            await _emailService.SendEmailVerificationTokenAsync(user.Email, token, user.Id);
-            return new ServiceResult<UserResponse> { StatusCode = 201 };
         }
 
     }

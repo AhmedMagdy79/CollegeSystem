@@ -24,7 +24,6 @@ namespace CollegeSystem.API.Controllers
             }
 
             var isExist = await _adminService.IsExist(model);
-            var test = "";
 
             if (isExist)
             {

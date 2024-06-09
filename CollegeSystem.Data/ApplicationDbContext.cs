@@ -22,8 +22,8 @@ namespace CollegeSystem.Data
         public DbSet<AssignmentSolution> AssignmentSolutions { get; set; }
         public DbSet<StudentAssignment> StudentAssignments { get; set; }
         public DbSet<StudentCourses> StudentCourses { get; set; }
-        public DbSet<StudentAttendence> StudentAttendences { get; set; }
         public DbSet<UserToken> UserTokens { get; set; }
+        public DbSet<Announsment> Announsments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,7 +32,6 @@ namespace CollegeSystem.Data
             modelBuilder.Entity<AssignmentSolution>().HasKey(a => new { a.StudentId, a.AssignmentId });
             modelBuilder.Entity<StudentAssignment>().HasKey(s => new { s.StudentId, s.AssignmentId });
             modelBuilder.Entity<StudentCourses>().HasKey(s => new { s.StudentId, s.CourseId });
-            modelBuilder.Entity<StudentAttendence>().HasKey(s => new { s.StudentId, s.CourseId });
             modelBuilder.Entity<UserToken>().HasKey(t => new { t.UserId, t.Token });
             modelBuilder.Entity<Admin>().HasKey(a => a.UserId);
             modelBuilder.Entity<Teacher>().HasKey(a => a.UserId);

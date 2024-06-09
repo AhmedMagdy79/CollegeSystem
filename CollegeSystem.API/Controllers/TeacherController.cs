@@ -1,5 +1,7 @@
-﻿using CollegeSystem.Core.Models.Request;
+﻿using CollegeSystem.Core.Constants;
+using CollegeSystem.Core.Models.Request;
 using CollegeSystem.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollegeSystem.API.Controllers
@@ -15,6 +17,7 @@ namespace CollegeSystem.API.Controllers
             _teacherService = teacherService;
         }
 
+        [Authorize(Policy = Policy.AdminPolicy)]
         [HttpPost("auth/signup")]
         public async Task<IActionResult> Signup(TeacherRequest model)
         {
